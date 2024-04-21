@@ -8,10 +8,9 @@ C:\dotnet-hosting-8.0.4-win.exe /quiet
 wget "https://stodiskdesafio.blob.core.windows.net/saa/Sistema.zip" -OutFile C:\Sistema.zip;
 Expand-Archive C:\Sistema.zip -DestinationPath C:\inetpub\wwwroot\
 
+Stop-WebSite -Name "Default Web Site"
 
-Stop-IISSite -Name "Default Web Site";
+New-WebSite -Name "Sistema" -Port 80 -PhysicalPath "C:\inetpub\wwwroot\Sistema\Sistema" -ApplicationPool "Sistema"
 
-New-IISSite -Name "Sistema" -bindingInformation="*:80:" -PhysicalPath "C:\inetpub\wwwroot\Sistema\Sistema"
-
-New-IISSite -Name "Dashboard" -bindingInformation="*:8080:" -PhysicalPath "C:\inetpub\wwwroot\Sistema\Dashboard"
+New-WebSite -Name "Dashboard" -Port 8080 -PhysicalPath "C:\inetpub\wwwroot\Sistema\Dashboard" -ApplicationPool "Dashboard"
 
